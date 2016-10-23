@@ -48,72 +48,76 @@ Next ...
 
 Thus my only option left is by doing an old fashion `git rm`
 
-- Extract the `_posts` data out
+### 1. Extract the `_posts` data out
 
-  ```shell
-  cd <my_jekyll_directory>
-  cp _posts/* <backup_directory>
-  ```
+```shell
+cd <my_jekyll_directory>
+cp _posts/* <backup_directory>
+```
 
-- Create an empty repository in git e.g.
-  [https://github.com/djoepramono/jekyll-posts](https://github.com/djoepramono/jekyll-posts>)
+### 2. Create an empty repository in git
 
-- Fill the repository with the content of the backup directory.
+For example: [https://github.com/djoepramono/jekyll-posts](https://github.com/djoepramono/jekyll-posts>) and fill the repository with the content of the backup directory.
 
-  **Why? Because `git add submodule` expects a non-empty repository**
+**Why? Because in recent git, `git add submodule` would automatically checkout master branch as well**
 
-  ```
-  cd <backup_directory>
-  git init
-  git remote add origin https://github.com/djoepramono/jekyll-posts
-  git push origin master
-  ```
+```shell
+cd <backup_directory>
+git init
+git remote add origin https://github.com/djoepramono/jekyll-posts
+git push origin master
+```
 
-- Clean up `_posts` data
+### 3. Clean up `_posts` data
 
-  ```shell
-  cd <my_jekyll_directory>
-  git rm _posts/*              # Delete posts that is already committed to GIT
-  rm _posts/*                  # Delete posts that is not yet committed to GIT
-  ```
+```shell
+cd <my_jekyll_directory>
+git rm _posts/*              # Delete posts that is already committed to GIT
+rm _posts/*                  # Delete posts that is not yet committed to GIT
+```
 
-- Add git submodule
+### 4. Add git submodule
 
-  ```shell
-  # Add git submodule which has to be a public repo with https
-  git submodule add https://github.com/djoepramono/jekyll-posts _posts
+```shell
+# Add git submodule which has to be a public repo with https
+git submodule add https://github.com/djoepramono/jekyll-posts _posts
 
-  # commit the automatically staged files for the git submodules
-  # i.e. .gitmodules and _posts
-  git commit -m 'add submodule'
-  ```
+# commit the automatically staged files for the git submodules
+# i.e. .gitmodules and _posts
+git commit -m 'add submodule'
+```
 
-  This creates  `.gitmodules` when success, which will need to be modified as follow
+This creates  `.gitmodules` when success.
 
-  ```
-  [submodule "_posts"]
-    path = _posts
-    url = https://github.com/djoepramono/jekyll-posts
-    ignore = dirty
-  ```
+### 5.  [OPTIONAL] Surpress gitsubmodule status
 
-  Why? Because otherwise when you do `git status` there will always be something like
+Change the newly created `.gitsubmodules` as follows
 
-  ```shell
-  $ git status
-  On branch master
-  Your branch is up-to-date with 'origin/master'.
-  Changes not staged for commit:
-    (use "git add <file>..." to update what will be committed)
-    (use "git checkout -- <file>..." to discard changes in working directory)
-    (commit or discard the untracked or modified content in submodules)
+```
+[submodule "_posts"]
+  path = _posts
+  url = https://github.com/djoepramono/jekyll-posts
+  ignore = dirty
+```
 
-    modified:   _posts (untracked content)
-  ```
-- Last but not least, copy the _posts content back
+Why? Because otherwise when you do `git status` there will always be something like
 
-  ```shell
-  cp <backup_directory>/* _posts
-  ```
-  And voila! It should work, even Sublime Jekyll Plugin is still functioning normally
+```shell
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+
+  modified:   _posts (untracked content)
+```
+
+### 6. Last but not least, copy the _posts content back
+
+```shell
+cp <backup_directory>/* _posts
+```
+And voila! It should work, even Sublime Jekyll Plugin is still functioning normally
 
