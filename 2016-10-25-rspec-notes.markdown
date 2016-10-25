@@ -1,5 +1,6 @@
 ---
 title: Rspec Notes
+categories: ruby rspec
 ---
 
 Notes about **rspec** which I find interesting.
@@ -12,6 +13,12 @@ Assuming you are using **bundler**, otherwise just ignore `bundle exec` and call
 $ bundle exec rspec <rspec_file>
 $ bundle exec rspec <rspec_file>:<line_number>
 ```
+
+## Describe and Context
+
+Difference between `describe` and `context` ? There's no functional difference, they are interchangeable
+
+But usually context is used to describe the condition, e.g. not full date selected
 
 ## Rspec as documentation
 
