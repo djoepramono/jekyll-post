@@ -1,0 +1,56 @@
+---
+title: Elm Notes
+categories: elm
+---
+
+What I jot down while learning **elm**.
+
+## How to install
+
+```
+brew install elm            # install Elm
+npm install -g elm-server   # install http
+
+
+elm-repl                    # interactive console
+elm-reactor                 # elm compiler e.g. compile a web app on port 8000
+```
+
+## Useful links
+
+- [Introduction to Elm](https://guide.elm-lang.org/core_language.html)
+- [Elm Architecture](http://guide.elm-lang.org/architecture/)
+- [One Page Elm Syntax](http://elm-lang.org/docs/syntax)
+- [99 Problems Solved in Elm](https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/)
+- [Elm for Beginners - *Video*](http://courses.knowthen.com/p/elm-for-beginners)
+
+## New line
+
+Similar to **ruby**, you can use `\` to do new line. Particulary useful for **repl**
+
+```
+> square n = \
+|   n^2
+<function> : number -> number
+```
+
+If you miss the white space before `\` or indentation (doesn't matter how many spaces) before `n^2`, 
+**elm** will complain.
+
+## Functions
+
+```
+square n =
+    n^2
+```
+
+Breakdown
+
+- `square` is the function name
+- `n` is a parameter
+- `n^2` is both what the function does and the return value
+- The convention is to put a new line after `=`
+- there is no `()` wrapping the parameters. If you see them in a function, that means it's a tuple parameter
+- calling a function without its parameters will return its signature
+
+
