@@ -1,0 +1,34 @@
+---
+title: Git Notes
+categories: git
+---
+
+Git never cease to amaze me. This is a bunch of notes about 
+
+## git commit --amend
+
+Useful for:
+
+- Change the last commit message. *I've been using this for a while now*
+- Add more changes into last commit as long as you stage it. *I just realised this, a bit late I know :)*
+
+```
+$ vi match.rb                                  # make some changes
+$ git add match.rb                             # stage the changes
+$ git commit --amend                           # amend
+... change the commit message if you want to
+$ git show HEAD                                # check if your changes is there
+```
+
+This is considered as rewriting history, so don't do this on public commits
+
+## git shortlog -s -n
+
+This command shows who does how many commits
+
+```
+$ git shortlog -s -n
+   100  John Doe
+    50  Mary Jane
+     4  David Moore
+```
