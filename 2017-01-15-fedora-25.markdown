@@ -1,0 +1,78 @@
+---
+title: Fedora 25
+---
+
+As part of my hobby, I decided to setup a **Fedora 25** on **VirtualBox**
+
+## Why Fedora25
+
+There is no compelling reason really. Mostly because my previous **Mint** box is quiet old (*One year ... :P*)
+so I decided to try something new, maybe something not **Debian** based. I used **Ubuntu** for work.
+
+Other reasons:
+
+- Upgrading from **Fedora 24** to **Fedora 25** is relatively painless. *Well that's what I read from the internet*
+- Wayland. I am sucker of a better GUI / UX, so Wayland is something that I want to try. *Unfortunately, it needs to be disabled*
+- Apart from that it's the usual: more up-to-date software, *Red Hat*'s' siblings, pretty nice DE (Desktop Environment), etc etc.
+
+However during the setup, there were some hiccups along the way
+
+## Installation
+
+When I checked VirtualBox's [site](https://virtualboxes.org/images/fedora/), Fedora 25 is not on the list.
+No matter, I just downloaded the iso straight from [getfedora.org](https://getfedora.org/en/workstation/download/)
+and installed it by mounting it into Virtual Box's drive.
+Once the installation is finished, I disconnected the iso, so that it could go to the actual virtual machine
+
+All good. *Well, not really because the screen resolution was so small and I couldn't bump it up*
+
+### Tidying up
+
+Without installing Virtual Box guest addition, you might have limited control on the virtual machine.
+Thankfully this [youtube](https://www.youtube.com/watch?v=zBgjUIZmf1Q) video had a pretty clear instruction
+on how to do it.
+
+```
+$ dnf list open-vm-tools                 # Open-vm-tools is not needed if Fedora is running on Virtual box ...
+$ dnf remove open-vm-tools               # .. so remove it.
+$ dnf install gcc make                   # Prerequisites for Virtual Box guest addition
+$ dnf install kernel-devel-$(uname -r)
+$ dnf install kernel-headers-$(uname -r)
+```
+
+### Virtual Box guest addition
+
+After that just install Virtual Box guest addition
+
+- On Virtual Box bar, go to **Devices -> Insert Guest Additions CD Image**
+- Click and provide the authentication
+- Restart the VM
+
+Sadly I didn't get the same result as the video. See below.
+
+## Infinite loop while login
+
+### Corrupted user
+
+Reading from the internet, there were some pointers if that infinite loop during login might be
+caused by a user not setup properly/corrupted.
+
+I checked by logging in to the terminal `ctrl+alt+f2` and all seemed to work fine.
+Even creating new user and restarting i.e. `shutdown -r now`, didn't really help.
+
+### Wayland incompatibility
+
+Unfortunately for my case, it was caused by **Wayland**. Once I disabled it. Everything works as normal
+
+```bash
+$ vim /etc/gdm/custom.conf
+```
+
+and set `WaylandEnable=false`
+
+```
+[daemon]
+WaylandEnable-false
+```
+
+**Voila** I got Fedora 25 running!
