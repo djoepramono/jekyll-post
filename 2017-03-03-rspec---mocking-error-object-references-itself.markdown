@@ -1,5 +1,6 @@
 ---
-title: RSpec - Object references itself
+title: RSpec - Object References Itself
+categories: ruby
 ---
 
 Just came across this problem when using RSpec in one the Rails project that
@@ -20,10 +21,10 @@ end
 ```
 
 Which is basically the details of the project including the manager of
-the project. The manager, is not an object, not just a string.
+the project. The manager, is an object, not just a string.
 *Rails is smart enough to map the manager structure into JSON ...*
 
-And as you would have expected the `spec` files,
+As you would have expected the `spec` files,
 
 ```ruby
 let(:manager) { mock(Manager, first_name: "John", last_name: "Doe") }
